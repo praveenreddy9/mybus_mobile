@@ -24,6 +24,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^4.3.3
+  http: ^0.13.4
+  simple_animations: ^1.3.12
+  tuple: ^1.0.3
+  encrypt: ^5.0.1
+  shared_preferences: ^2.1.1
+  flutter_easyloading: ^3.0.0
+  numberpicker: ^2.1.1
+  flutter_svg: ^1.1.4
+  touchable: ^1.0.2
+  freezed_annotation: ^2.1.0
+  rotation_stage: ^0.0.9
+  intl: ^0.17.0
+  lottie: ^1.4.2
+  keyboard_visibility: ^0.5.2
+  shamsi_date: ^1.0.0
+  sizer: ^2.0.15
+  dotted_border: ^2.0.0+3
+  image_picker: ^0.8.7+5
+  dio: ^5.1.2
+  lodash_flutter: ^0.0.3
+  url_launcher: ^6.1.11
+  loading_animation_widget: ^1.2.0+4
+  device_info_plus: ^9.0.2
+  flutter_otp_text_field: ^1.1.1
+  apple_product_name: ^2.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -37,6 +63,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+  flutter_lints: ^2.0.0
+  build_runner: ^2.1.11
+  freezed: ^2.0.3+1
+  json_serializable: ^6.2.0
 
 # The following section is specific to Flutter.
 flutter:
@@ -46,6 +76,51 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   generate: true
+
+  assets:
+    - assets/
+    - assets/images/
+
+  fonts:
+    - family: Helvetica
+      fonts:
+        - asset: assets/font/Helvetica.ttf
+
+    - family: HelveticaMedium
+      fonts:
+        - asset: assets/font/HelveticaMedium.ttf
+
+    - family: HelveticaBold
+      fonts:
+        - asset: assets/font/HelveticaBold.ttf
+
+    - family: GeoramaSemiExpandedBold
+      fonts:
+        - asset: assets/font/georama_semiexpanded_bold.ttf
+        
+    - family: GeoramaSemiExpandedExtraBold
+      fonts:
+        - asset: assets/font/georama_semiexpanded_extrabold.ttf
+
+    - family: GeoramaSemiExpandedLight
+      fonts:
+        - asset: assets/font/georama_semiexpanded_light.ttf
+
+    - family: GeoramaSemiExpandedMediumItalic
+      fonts:
+        - asset: assets/font/georama_semiexpanded_medium_italic.ttf
+
+    - family: GeoramaSemiExpandedMedium
+      fonts:
+        - asset: assets/font/georama_semiexpanded_medium.ttf
+
+    - family: GeoramaSemiExpandedRegular
+      fonts:
+        - asset: assets/font/georama_semiexpanded_regular.ttf
+
+    - family: GeoramaSemiExpandedSemiBold
+      fonts:
+        - asset: assets/font/georama_semiexpanded_semibold.ttf 
 
   # To add assets to your application, add an assets section, like this:
   # assets:
