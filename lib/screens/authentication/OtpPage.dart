@@ -104,27 +104,6 @@ class _OtpPageState extends State<OtpPage> {
       if (mapResponse["success"]) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         // print('============>');
-        var checkValueUserId = mapResponse.containsKey('user_id');
-        var checkValueStaffId = mapResponse.containsKey('staff_id');
-
-        var setUserId = checkValueUserId ? mapResponse['user_id'] : '';
-        var setStaffId = checkValueStaffId ? mapResponse['staff_id'] : '';
-        var setMobileNumber = mapResponse['mobile'] ?? '';
-        // print(mapResponse['authtoken']);
-        await prefs.setString('authtoken', mapResponse['authtoken']);
-        await prefs.setInt('isAdmin', mapResponse['isAdmin']);
-
-        // await prefs.setString('firstLogin', 'true');
-
-        await prefs.setString('user_id', setUserId.toString());
-        await prefs.setString('staff_id', setStaffId.toString());
-
-        await prefs.setString('role', mapResponse['role']);
-        await prefs.setString('name', mapResponse['name']);
-        await prefs.setString('loginName', mapResponse['name']);
-
-        await prefs.setString('email', mapResponse['email']);
-        await prefs.setString('phoneNumber', setMobileNumber);
         FocusScope.of(context).unfocus();
         handlingNavigation();
       }
@@ -360,155 +339,29 @@ class _OtpPageState extends State<OtpPage> {
                                       FocusScope.of(context).unfocus();
                                     }, // end onSubmit
                                   ),
-                                  // Container(
-                                  //   width: 70,
-                                  //   height: 70,
-                                  //   margin: EdgeInsets.all(4),
-                                  //   alignment: Alignment.center,
-                                  //   decoration: BoxDecoration(
-                                  //       borderRadius: BorderRadius.circular(5),
-                                  //       color: otpInputBoxColor,
-                                  //       border: Border.all(
-                                  //           width: 1,
-                                  //           color: border,
-                                  //           style: BorderStyle.solid)),
-                                  //   child: TextField(
-                                  //     autofocus: true,
-                                  //     keyboardType: defaultTargetPlatform ==
-                                  //             TargetPlatform.iOS
-                                  //         ? TextInputType.numberWithOptions(
-                                  //             decimal: true, signed: true)
-                                  //         : TextInputType.number,
-                                  //     textAlign: TextAlign.center,
-                                  //     style: TextStyle(
-                                  //         fontSize: 30, fontFamily: ffGMedium),
-                                  //     decoration: const InputDecoration(
-                                  //         contentPadding: EdgeInsets.all(4),
-                                  //         border: InputBorder.none),
-                                  //     onChanged: (value) {
-                                  //       _loginRequest.otp1 = value;
-                                  //     },
-                                  //   ),
-                                  // ),
-                                  // Container(
-                                  //   width: 70,
-                                  //   height: 70,
-                                  //   margin: EdgeInsets.all(4),
-                                  //   alignment: Alignment.center,
-                                  //   decoration: BoxDecoration(
-                                  //       borderRadius: BorderRadius.circular(5),
-                                  //       color: otpInputBoxColor,
-                                  //       border: Border.all(
-                                  //           width: 1,
-                                  //           color: border,
-                                  //           style: BorderStyle.solid)),
-                                  //   child: TextField(
-                                  //     autofocus: true,
-                                  //     keyboardType: defaultTargetPlatform ==
-                                  //             TargetPlatform.iOS
-                                  //         ? TextInputType.numberWithOptions(
-                                  //             decimal: true, signed: true)
-                                  //         : TextInputType.number,
-                                  //     textAlign: TextAlign.center,
-                                  //     style: TextStyle(
-                                  //         fontSize: 30, fontFamily: ffGMedium),
-                                  //     decoration: const InputDecoration(
-                                  //         contentPadding: EdgeInsets.all(4),
-                                  //         border: InputBorder.none),
-                                  //     onChanged: (value) {
-                                  //       _loginRequest.otp2 = value;
-                                  //     },
-                                  //   ),
-                                  // ),
-                                  // Container(
-                                  //   width: 70,
-                                  //   height: 70,
-                                  //   margin: EdgeInsets.all(4),
-                                  //   alignment: Alignment.center,
-                                  //   decoration: BoxDecoration(
-                                  //       borderRadius: BorderRadius.circular(5),
-                                  //       color: otpInputBoxColor,
-                                  //       border: Border.all(
-                                  //           width: 1,
-                                  //           color: border,
-                                  //           style: BorderStyle.solid)),
-                                  //   child: TextField(
-                                  //     autofocus: true,
-                                  //     keyboardType: defaultTargetPlatform ==
-                                  //             TargetPlatform.iOS
-                                  //         ? TextInputType.numberWithOptions(
-                                  //             decimal: true, signed: true)
-                                  //         : TextInputType.number,
-                                  //     textAlign: TextAlign.center,
-                                  //     style: TextStyle(
-                                  //         fontSize: 30, fontFamily: ffGMedium),
-                                  //     decoration: const InputDecoration(
-                                  //         contentPadding: EdgeInsets.all(4),
-                                  //         border: InputBorder.none),
-                                  //     onChanged: (value) {
-                                  //       _loginRequest.otp3 = value;
-                                  //     },
-                                  //   ),
-                                  // ),
-                                  // Container(
-                                  //   width: 70,
-                                  //   height: 70,
-                                  //   margin: EdgeInsets.all(4),
-                                  //   alignment: Alignment.center,
-                                  //   decoration: BoxDecoration(
-                                  //       borderRadius: BorderRadius.circular(5),
-                                  //       color: otpInputBoxColor,
-                                  //       border: Border.all(
-                                  //           width: 1,
-                                  //           color: border,
-                                  //           style: BorderStyle.solid)),
-                                  //   child: TextField(
-                                  //     autofocus: true,
-                                  //     keyboardType: defaultTargetPlatform ==
-                                  //             TargetPlatform.iOS
-                                  //         ? TextInputType.numberWithOptions(
-                                  //             decimal: true, signed: true)
-                                  //         : TextInputType.number,
-                                  //     textAlign: TextAlign.center,
-                                  //     style: TextStyle(
-                                  //         fontSize: 30, fontFamily: ffGMedium),
-                                  //     decoration: const InputDecoration(
-                                  //         contentPadding: EdgeInsets.all(4),
-                                  //         border: InputBorder.none),
-                                  //     onChanged: (value) {
-                                  //       _loginRequest.otp4 = value;
-                                  //       FocusScope.of(context).unfocus();
-                                  //     },
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage()));
-
-                                // if (verificationCode != null) {
-                                //   if (verificationCode.length == 4) {
-                                //     if (onlyNumberRegex
-                                //         .hasMatch(verificationCode)) {
-                                //       // print('reached final =====');
-                                //       onOTPverify(verificationCode);
-                                //     } else {
-                                //       _showSnackBar("Please enter only numbers",
-                                //           context, false);
-                                //     }
-                                //   } else {
-                                //     _showSnackBar("Please enter 4 digit OTP",
-                                //         context, false);
-                                //   }
-                                // } else {
-                                //   _showSnackBar(
-                                //       "Please enter OTP", context, false);
-                                // }
+                                if (verificationCode != null) {
+                                  if (verificationCode.length == 4) {
+                                    if (onlyNumberRegex
+                                        .hasMatch(verificationCode)) {
+                                      // print('reached final =====');
+                                      onOTPverify(verificationCode);
+                                    } else {
+                                      _showSnackBar("Please enter only numbers",
+                                          context, false);
+                                    }
+                                  } else {
+                                    _showSnackBar("Please enter 4 digit OTP",
+                                        context, false);
+                                  }
+                                } else {
+                                  _showSnackBar(
+                                      "Please enter OTP", context, false);
+                                }
                               },
                               child: Container(
                                 margin: keyboardVisible == 1

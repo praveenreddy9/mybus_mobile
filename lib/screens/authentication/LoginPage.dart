@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mybus_mobile/screens/SettingsPage.dart';
 import 'package:mybus_mobile/screens/authentication/OtpPage.dart';
+import '../../utility/validations.dart';
 import '/utility/Colors.dart';
 import '/utility/Fonts.dart';
 import '/utility/Utils.dart';
@@ -45,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
   int? selected = 1;
   int? keyboardVisible = 0;
   final _loginRequest = [];
+  var mobileNumber = '';
 
   String stringResponse = '';
   Map mapResponse = {};
@@ -69,12 +71,25 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pop(context, true);
   }
 
-  Future onLogin(email) async {
+  onNext() {
+    var tempValue = mobileNumber;
+
+    if (tempValue.isEmpty) {
+      _showSnackBar("Please enter phone number", context, false);
+    } else {
+      // if (phoneNumberRegax.hasMatch(tempValue) && tempValue.length == 10) {
+      if (phoneNumberRegax.hasMatch(tempValue) && tempValue.length == 10) {
+        this.onLogin(tempValue);
+      } else {
+        _showSnackBar("Please enter a valid phone number", context, false);
+      }
+    }
+  }
+
+  Future onLogin(mobileNumber) async {
     Utils.returnScreenLoader(context);
     http.Response response;
-    // http.get("url")
-    // Map map = {"email": "praveen.vangala@whizzard.in"};
-    Map map = {"email": email};
+    Map map = {"mobileNumber": mobileNumber};
     var body = json.encode(map);
 
     response = await http.post(Uri.parse(BASE_URL + GET_OTP),
@@ -87,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
       _showSnackBar(mapResponse['message'], context, mapResponse['success']);
       if (mapResponse["success"]) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('loggedEmail', email);
+        await prefs.setString('mobileNumber', mobileNumber);
         FocusScope.of(context).unfocus();
         Navigator.pushNamed(context, '/otpPage', arguments: {}).then((_) {
           // This block runs when you have returned back to the 1st Page from 2nd.
@@ -149,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                             Container(
                                 margin: EdgeInsets.only(
                                     top: MediaQuery.of(context).size.height *
-                                        0.07),
+                                        0.1),
                                 child: Row(
                                   children: [],
                                 )),
@@ -157,8 +172,8 @@ class _LoginPageState extends State<LoginPage> {
                               width: MediaQuery.of(context).size.width * 0.8,
                               height: MediaQuery.of(context).size.height * 0.1,
                               margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height *
-                                      0.15),
+                                  top:
+                                      MediaQuery.of(context).size.height * 0.2),
                               child: const Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -202,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: TextField(
                                 // controller: userController,
                                 decoration: const InputDecoration(
-                                    labelText: 'Enter Email Address',
+                                    labelText: 'Enter Mobile Number',
                                     labelStyle: TextStyle(
                                         fontFamily: ffGMedium,
                                         fontSize: 15.0,
@@ -215,18 +230,17 @@ class _LoginPageState extends State<LoginPage> {
                                     contentPadding: EdgeInsets.all(15),
                                     border: InputBorder.none),
                                 onChanged: (value) {
-                                  // _loginRequest.username = value;
+                                  mobileNumber = value;
                                 },
                               ),
                             ),
                             InkWell(
                               onTap: () {
-                                print('Reached login button');
-
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => OtpPage()));
+                                this.onNext();
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => OtpPage()));
                               },
                               child: Container(
                                 margin: keyboardVisible == 1
@@ -272,7 +286,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     alignment: Alignment.center,
                                     height: MediaQuery.of(context).size.height *
-                                        0.1,
+                                        0.07,
                                     child: const Text(
                                       "LOGIN",
                                       style: TextStyle(
@@ -285,69 +299,67 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.03,
-                              margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.width * 0.01,
-                                  left: MediaQuery.of(context).size.width * 0.1,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.03,
-                                    margin: EdgeInsets.only(
-                                        top: MediaQuery.of(context).size.width *
-                                            0.01,
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.1),
-                                    child: const Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Not Have an account with us?',
-                                        style: TextStyle(
-                                          fontFamily: 'Helvetica',
-                                          color: appColor,
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.15,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.03,
-                                    margin: EdgeInsets.only(
-                                        top: MediaQuery.of(context).size.width *
-                                            0.01),
-                                    child: InkWell(
-                                        onTap: () {
-                                          // onSignIn();
-                                        },
-                                        child: const Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Sign Up',
-                                            style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontFamily: 'Helvetica',
-                                              color: black,
-                                              fontSize: 14.0,
-                                            ),
-                                          ),
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   alignment: Alignment.center,
+                            //   width: MediaQuery.of(context).size.width,
+                            //   height: MediaQuery.of(context).size.height * 0.03,
+                            //   margin: EdgeInsets.only(
+                            //       top: MediaQuery.of(context).size.width * 0.01,
+                            //       left: MediaQuery.of(context).size.width * 0.1,
+                            //       right:
+                            //           MediaQuery.of(context).size.width * 0.1),
+                            //   child: Row(
+                            //     children: [
+                            //       Container(
+                            //         width: MediaQuery.of(context).size.width *
+                            //             0.49,
+                            //         height: MediaQuery.of(context).size.height *
+                            //             0.03,
+                            //         margin: EdgeInsets.only(
+                            //           top: MediaQuery.of(context).size.width *
+                            //               0.01,
+                            //         ),
+                            //         child: const Align(
+                            //           alignment: Alignment.center,
+                            //           child: Text(
+                            //             'Not Have an account with us?',
+                            //             style: TextStyle(
+                            //               fontFamily: ffGLight,
+                            //               color: appColor,
+                            //               fontSize: 14.0,
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Container(
+                            //         width: MediaQuery.of(context).size.width *
+                            //             0.15,
+                            //         height: MediaQuery.of(context).size.height *
+                            //             0.03,
+                            //         margin: EdgeInsets.only(
+                            //             top: MediaQuery.of(context).size.width *
+                            //                 0.01),
+                            //         child: InkWell(
+                            //             onTap: () {
+                            //               // onSignIn();
+                            //             },
+                            //             child: const Align(
+                            //               alignment: Alignment.centerLeft,
+                            //               child: Text(
+                            //                 'Sign Up',
+                            //                 style: TextStyle(
+                            //                   decoration:
+                            //                       TextDecoration.underline,
+                            //                   fontFamily: ffGMedium,
+                            //                   color: black,
+                            //                   fontSize: 14.0,
+                            //                 ),
+                            //               ),
+                            //             )),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ))),
               ),
