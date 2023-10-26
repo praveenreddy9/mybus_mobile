@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lodash_flutter/lodash_flutter.dart';
+import 'package:mybus_mobile/HomePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Colors.dart';
 
@@ -215,20 +216,20 @@ class Utils {
   }
 
   static returnHomeNavigation(context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var authtoken = prefs.getString('authtoken');
-    if (authtoken != null) {
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => HomePage()));
-    } else {
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => DashboardPage()));
-    }
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // var authtoken = prefs.getString('authtoken');
+    // if (authtoken != null) {
+    //   // Navigator.pushReplacement(
+    //   //     context, MaterialPageRoute(builder: (context) => HomePage()));
+    // } else {
+    //   // Navigator.pushReplacement(
+    //   //     context, MaterialPageRoute(builder: (context) => DashboardPage()));
+    // }
 
-    // Navigator.pushReplacement(
-    //     // context, MaterialPageRoute(builder: (context) => DashboardPage()));
-    //     context,
-    //     MaterialPageRoute(builder: (context) => SplashPage()));
+    Navigator.pushReplacement(
+        // context, MaterialPageRoute(builder: (context) => DashboardPage()));
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   static returnIncidentNavigation(context) async {
@@ -260,7 +261,7 @@ class Utils {
       ),
     );
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return alert;

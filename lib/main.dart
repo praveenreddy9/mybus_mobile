@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:mybus_mobile/HomePage.dart';
 import 'package:mybus_mobile/screens/authentication/LoginPage.dart';
 import 'package:mybus_mobile/screens/authentication/OtpPage.dart';
+import 'package:mybus_mobile/screens/profileStack/ImagesUpload.dart';
 import 'package:mybus_mobile/screens/splash/SplashPage.dart';
 // import 'package:provider/provider.dart';
 import 'LocalStrings/index.dart';
@@ -89,13 +90,14 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: HomePage(),
       builder: EasyLoading.init(),
       routes: {
         "/SplashPage": (context) => SplashPage(),
         "/LoginPage": (context) => LoginPage(),
         "/OtpPage": (context) => OtpPage(),
         "/SettingsPage": (context) => SettingsPage(),
+        "/ImagesUpload": (context) => ImagesUpload(),
       },
     );
   }
